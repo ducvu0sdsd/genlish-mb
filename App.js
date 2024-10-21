@@ -10,6 +10,8 @@ import { useEffect, useRef, useState } from "react";
 import Index from "./src/screens";
 import PayLoadProvider from "./src/contexts/PayloadContext";
 import Navbar from "./src/components/Navbar";
+import LearnProvider from "./src/contexts/LearnContext";
+import PracticeProvider from "./src/contexts/PracticeContext";
 
 export default function App() {
   const [reload, setReload] = useState(false)
@@ -30,18 +32,22 @@ export default function App() {
 
   return (
     <UserProvider>
-      <UtilsProvider>
-        <PayLoadProvider>
-          <ScreenProvider>
-            <MenuProvider>
-              <AuthProvider>
-                <Navbar />
-                <Index />
-              </AuthProvider>
-            </MenuProvider>
-          </ScreenProvider>
-        </PayLoadProvider>
-      </UtilsProvider>
+      <LearnProvider>
+        <PracticeProvider>
+          <UtilsProvider>
+            <PayLoadProvider>
+              <ScreenProvider>
+                <MenuProvider>
+                  <AuthProvider>
+                    <Navbar />
+                    <Index />
+                  </AuthProvider>
+                </MenuProvider>
+              </ScreenProvider>
+            </PayLoadProvider>
+          </UtilsProvider>
+        </PracticeProvider>
+      </LearnProvider>
     </UserProvider>
   );
 }

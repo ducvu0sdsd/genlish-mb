@@ -1,7 +1,7 @@
 {
   "expo": {
-    "name": "Health Haven",
-    "slug": "healthhaven-mb",
+    "name": "Genlish",
+    "slug": "genlish-mb",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/logo.png",
@@ -22,14 +22,14 @@
       "package": "com.vutienduc.healthhavenmb"
     },
     "web": {
-      "favicon": "./assets/favlogo.png"
+      "favicon": "./assets/logo.png"
     },
     "plugins": [
       "expo-font"
     ],
     "extra": {
       "eas": {
-        "projectId": "26b41d2a-6b68-419c-9a48-03980ab48745"
+        "projectId": "37051990-5fac-433a-8b97-178fdaa6435d"
       }
     }
   }

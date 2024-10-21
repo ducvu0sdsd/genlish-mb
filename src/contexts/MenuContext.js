@@ -8,6 +8,8 @@ import FormAllNote from "../components/forms/FormAllNote";
 import MenuArea from "../components/MenuArea";
 import FormDetailBroadCast from "../components/forms/DetailBroadCast";
 import FormChangePassword from "../components/forms/ChangePassword";
+import FormListGate from "../components/forms/FormListGate";
+import FormPractice from "../components/forms/FormPractice";
 export const menuContext = createContext()
 
 const MenuProvider = ({ children }) => {
@@ -19,6 +21,8 @@ const MenuProvider = ({ children }) => {
     const [displayListEpisode, setDisplayListEpisode] = useState(false)
     const [displayDetailBroadCast, setDisplayDetailBroadCast] = useState(false)
     const [displayChangePassword, setDisplayChangePassword] = useState(false)
+    const [displayListGate, setDisplayListGate] = useState(false)
+    const [displayPractice, setDisplayPractice] = useState(false)
 
     const hidden = () => {
         setDisplaySignIn(false)
@@ -29,6 +33,8 @@ const MenuProvider = ({ children }) => {
         setDisplay(false)
         setDisplayDetailBroadCast(false)
         setDisplayChangePassword(false)
+        setDisplayListGate(false)
+        setDisplayPractice(false)
     }
 
     const data = {
@@ -39,7 +45,9 @@ const MenuProvider = ({ children }) => {
         displayAllNote,
         display,
         displayDetailBroadCast,
-        displayChangePassword
+        displayChangePassword,
+        displayListGate,
+        displayPractice
     }
 
     const handler = {
@@ -50,7 +58,9 @@ const MenuProvider = ({ children }) => {
         setDisplayAllNote,
         setDisplay,
         setDisplayDetailBroadCast,
-        setDisplayChangePassword
+        setDisplayChangePassword,
+        setDisplayListGate,
+        setDisplayPractice
     }
 
     return (
@@ -67,6 +77,8 @@ const MenuProvider = ({ children }) => {
             <FormAllNote />
             <FormDetailBroadCast />
             <FormChangePassword />
+            <FormListGate />
+            <FormPractice />
         </menuContext.Provider>
     )
 }

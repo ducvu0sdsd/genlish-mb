@@ -74,31 +74,35 @@ const FormDetailBroadCast = () => {
                 </TouchableOpacity>
             </View>
             <View style={{ width: '100%', flexDirection: 'column', alignItems: 'center' }}>
-                <YoutubePlayer
-                    ref={reactPlayerRef}
-                    height={width * 9 / 16}
-                    width={width}
-                    play={playing}
-                    videoId={payloadData.currentBroadCast?.urlVideo} // Thay bằng ID video của bạn
-                />
-                <Text style={{ width: '100%', paddingHorizontal: 10, marginTop: 10, fontSize: 18, fontWeight: 600 }}>
-                    {payloadData.currentBroadCast?.title}
-                </Text>
-                <Text style={{ width: '100%', paddingHorizontal: 10, marginTop: 5, fontSize: 15 }}>
-                    From {payloadData.currentBroadCast?.channelName}
-                </Text>
-                <ScrollView scrollEnabled={true} ref={subRef} style={{ paddingHorizontal: 20, marginTop: 10 }}>
-                    {payloadData.currentBroadCast?.englishSubtitle.map((item, i) => (
-                        <View ref={el => itemRefs.current[i] = el} key={i} style={{ flexDirection: 'column', marginBottom: i === payloadData.currentBroadCast?.englishSubtitle.length - 1 ? 500 : 15 }}>
-                            <Text style={{ fontSize: 17, fontWeight: 600, color: i === id ? 'blue' : 'black' }}>
-                                {item.content.trim()}
-                            </Text>
-                            <Text style={{ fontSize: 16, color: i === id ? 'blue' : 'black' }}>
-                                {payloadData.currentBroadCast?.vietnameseSubtitle[i].content.trim()}
-                            </Text>
-                        </View>
-                    ))}
-                </ScrollView>
+                {menuData.displayDetailBroadCast === true && (
+                    <>
+                        <YoutubePlayer
+                            ref={reactPlayerRef}
+                            height={width * 9 / 16}
+                            width={width}
+                            play={playing}
+                            videoId={payloadData.currentBroadCast?.urlVideo} // Thay bằng ID video của bạn
+                        />
+                        <Text style={{ width: '100%', paddingHorizontal: 10, marginTop: 10, fontSize: 18, fontWeight: 600 }}>
+                            {payloadData.currentBroadCast?.title}
+                        </Text>
+                        <Text style={{ width: '100%', paddingHorizontal: 10, marginTop: 5, fontSize: 15 }}>
+                            From {payloadData.currentBroadCast?.channelName}
+                        </Text>
+                        <ScrollView scrollEnabled={true} ref={subRef} style={{ paddingHorizontal: 20, marginTop: 10 }}>
+                            {payloadData.currentBroadCast?.englishSubtitle.map((item, i) => (
+                                <View ref={el => itemRefs.current[i] = el} key={i} style={{ flexDirection: 'column', marginBottom: i === payloadData.currentBroadCast?.englishSubtitle.length - 1 ? 500 : 15 }}>
+                                    <Text style={{ fontSize: 17, fontWeight: 600, color: i === id ? 'blue' : 'black' }}>
+                                        {item.content.trim()}
+                                    </Text>
+                                    <Text style={{ fontSize: 16, color: i === id ? 'blue' : 'black' }}>
+                                        {payloadData.currentBroadCast?.vietnameseSubtitle[i].content.trim()}
+                                    </Text>
+                                </View>
+                            ))}
+                        </ScrollView>
+                    </>
+                )}
             </View >
         </Animated.View >
     );
