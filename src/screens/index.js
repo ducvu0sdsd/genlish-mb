@@ -9,6 +9,7 @@ import LearnScreen from './LearnScreen';
 import SearchScreen from './SearchScreen';
 import BroadCastScreen from './BroadCastScreen';
 import RecordScreen from './RecordScreen';
+import PaymentScreen from './PaymentScreen';
 
 const Index = () => {
     const { width } = Dimensions.get('window');
@@ -31,6 +32,7 @@ const Index = () => {
             <LandingScreen />
             <CourseScreen />
             <DetailCourseScreen />
+            <PaymentScreen />
             <ViewingCourseScreen />
             <LearnScreen />
             <SearchScreen />

@@ -190,7 +190,7 @@ const ViewingCourseScreen = () => {
     return (
         <ScrollView>
             <View style={{ flexWrap: 'wrap', flexDirection: 'column', width, gap: 10, position: 'relative' }}>
-                {(payloadData.course && screenData.currentScreen === 3) && (
+                {(payloadData.course && screenData.currentScreen === 4) && (
                     <>
                         <TouchableOpacity onPress={() => screenHandler.navigate('course-detail')} style={{ zIndex: 1, position: 'absolute', top: 10, left: 10 }}>
                             <Icon1 name='arrow-back-ios' style={{ color: 'white', fontSize: 30 }} />

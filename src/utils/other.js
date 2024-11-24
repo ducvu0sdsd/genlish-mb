@@ -177,3 +177,8 @@ export const dateCrateComment = (dateString) => {
         return `${differenceInSeconds} giây trước`;
     }
 };
+export const typePayments = {
+    studentTranfer: 'STUDENT_TRANFER',
+    waitingForTeacher: 'WAITING_FOR_TEACHER',
+    moneyToTeacher: 'MONEY_TO_TEACHER'
+}

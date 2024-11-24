@@ -22,16 +22,21 @@ const DetailCourseScreen = () => {
     }, [payloadData.course])
 
     const handleSignUpCourse = () => {
-        const body = {
-            student_id: userData.user._id,
-            course_id: course._id,
-            process: 1
+        if (course.type === 'pay') {
+            screenHandler.navigate('payment')
+            payloadHandler.setCurrentCourse(course)
+        } else {
+            const body = {
+                student_id: userData.user._id,
+                course_id: course._id,
+                process: 1
+            }
+            api({ sendToken: true, type: TypeHTTP.POST, body, path: '/studycourse/create' })
+                .then(res => {
+                    utilsHandler.notify(notifyType.SUCCESS, 'Đăng Ký Học Thành Công')
+                    payloadHandler.setStudyCourse(res)
+                })
         }
-        api({ sendToken: true, type: TypeHTTP.POST, body, path: '/studycourse/create' })
-            .then(res => {
-                utilsHandler.notify(notifyType.SUCCESS, 'Đăng Ký Học Thành Công')
-                payloadHandler.setStudyCourse(res)
-            })
     }
 
     return (

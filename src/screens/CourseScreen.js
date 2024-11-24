@@ -19,7 +19,7 @@ const CourseScreen = () => {
     const { screenHandler } = useContext(screenContext)
 
     useEffect(() => {
-        api({ type: TypeHTTP.GET, sendToken: true, path: '/course/get-all' })
+        api({ type: TypeHTTP.GET, sendToken: false, path: '/course/get-all' })
             .then(res => {
                 setCourses(res)
             })
@@ -42,7 +42,7 @@ const CourseScreen = () => {
                             <View style={{ flexDirection: 'row', justifyContent: 'space-between', paddingHorizontal: 5 }}>
                                 <View style={{ flexDirection: 'row', alignItems: 'center' }}>
                                     <Image source={{ uri: course.teacher.avatar }} style={{ width: 30, aspectRatio: 1, borderRadius: 30 }} />
-                                    <Text style={{ fontSize: 13, fontWeight: 600, paddingHorizontal: 5, color: '#3b3b3b' }}>{course.teacher.fullName}</Text>
+                                    <Text style={{ fontSize: 13, fontWeight: 600, paddingHorizontal: 5, color: '#3b3b3b' }}>{course.teacher.fullName.split(' ').filter((item, index) => index === course.teacher.fullName.split(' ').length - 1 || index === course.teacher.fullName.split(' ').length - 2).join(' ')}</Text>
                                 </View>
                                 <View style={{ flexDirection: 'row', alignItems: 'center' }}>
                                     <Icon name='time-outline' style={{ fontSize: 16 }} />

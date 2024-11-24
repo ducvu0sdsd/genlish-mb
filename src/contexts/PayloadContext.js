@@ -18,6 +18,9 @@ const PayLoadProvider = ({ children }) => {
     //broad cast
     const [currentBroadCast, setCurrentBroadCast] = useState()
 
+    // payment
+    const [currentCourse, setCurrentCourse] = useState(false)
+
     useEffect(() => {
         if (userData.user?._id, course?._id) {
             api({ sendToken: true, type: TypeHTTP.GET, path: `/studycourse/get-by-student-and-course?studentid=${userData.user._id}&courseid=${course._id}` })
@@ -33,7 +36,8 @@ const PayLoadProvider = ({ children }) => {
         currentEpisode,
         currentIndex,
         handleChangeEpisode,
-        currentBroadCast
+        currentBroadCast,
+        currentCourse
     }
 
     const handler = {
@@ -44,7 +48,8 @@ const PayLoadProvider = ({ children }) => {
         setCurrentEpisode,
         setCurrentIndex,
         setHandleChangeEpisode,
-        setCurrentBroadCast
+        setCurrentBroadCast,
+        setCurrentCourse
     }
 
     return (

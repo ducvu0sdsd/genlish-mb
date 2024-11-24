@@ -18,20 +18,23 @@ const ScreenProvider = ({ children }) => {
             case 'course-detail':
                 setCurrentScreen(2)
                 break
-            case 'viewing-course':
+            case 'payment':
                 setCurrentScreen(3)
                 break
-            case 'learn':
+            case 'viewing-course':
                 setCurrentScreen(4)
                 break
-            case 'search':
+            case 'learn':
                 setCurrentScreen(5)
                 break
-            case 'broadcast':
+            case 'search':
                 setCurrentScreen(6)
                 break
-            case 'record':
+            case 'broadcast':
                 setCurrentScreen(7)
+                break
+            case 'record':
+                setCurrentScreen(8)
                 break
         }
     }
