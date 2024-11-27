@@ -49,7 +49,7 @@ const FormListGate = () => {
                         setTimeout(() => {
                             menuHandler.setDisplayListGate(false)
                         }, 1000);
-                    }} key={index} style={{ width: '46%', justifyContent: 'center', alignItems: 'center', gap: 5, backgroundColor: colors.reverse()[index], flexDirection: 'column', paddingBottom: 5, borderRadius: 8, height: 80, marginLeft: 10 }}>
+                    }} key={index} style={{ width: '46%', justifyContent: 'center', alignItems: 'center', gap: 5, backgroundColor: colors[index], flexDirection: 'column', paddingBottom: 5, borderRadius: 8, height: 80, marginLeft: 10 }}>
                         <Text style={{ fontSize: 20, fontWeight: 600 }}>Level {gate.level}</Text>
                         <Text style={{ fontSize: 14, fontWeight: 600 }}>{gate.title}</Text>
                     </TouchableOpacity>

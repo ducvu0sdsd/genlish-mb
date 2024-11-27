@@ -177,14 +177,18 @@ const Step = ({ setTop, margin, left, level, door, final = false }) => {
     useEffect(() => {
         if (userData.user && door && level > 0) {
             const currentLevel = userData.user.study.levelVocabulary
-            if (currentLevel.gate === door.gate.level && currentLevel.door === door.individual.door && currentLevel.level === level) {
-                setStatus(trangThai[2])
-            }
-            if (currentLevel.gate === door.gate.level && currentLevel.door === door.individual.door && currentLevel.level > level) {
-                setStatus(trangThai[3])
-            }
-            if (currentLevel.gate >= door.gate.level && currentLevel.door > door.individual.door) {
-                setStatus(trangThai[3])
+            if (door.gate.level <= userData.user.study.levelVocabulary.gate) {
+                if (currentLevel.gate === door.gate.level && currentLevel.door === door.individual.door && currentLevel.level === level) {
+                    setStatus(trangThai[2])
+                }
+                if (currentLevel.gate === door.gate.level && currentLevel.door === door.individual.door && currentLevel.level > level) {
+                    setStatus(trangThai[3])
+                }
+                if (currentLevel.gate >= door.gate.level && currentLevel.door > door.individual.door) {
+                    setStatus(trangThai[3])
+                }
+            } else {
+                setStatus(trangThai[1])
             }
         }
     }, [userData.user, door, level])
@@ -204,8 +208,8 @@ const Step = ({ setTop, margin, left, level, door, final = false }) => {
                     <Image source={{ uri: userData.user?.avatar }} style={{ width: 40, height: 40, borderRadius: 40 }} />
                 </View>
             )}
-            <TouchableOpacity onPress={() => handleAnimate()} style={{ flexDirection: 'column', position: 'relative' }}>
-                <View style={left === false ? { height: 90, flexDirection: 'row', justifyContent: 'center', alignItems: 'center', marginTop: 10, width: 90, backgroundColor: status === trangThai[1] ? '#e5e5e5' : status === trangThai[2] ? '#85c1e9' : '#58d68d', borderRadius: 90, marginLeft: margin ? margin : 0 } : { height: 90, flexDirection: 'row', justifyContent: 'center', alignItems: 'center', marginTop: 10, width: 90, backgroundColor: status === trangThai[1] ? '#e5e5e5' : status === trangThai[2] ? '#85c1e9' : '#58d68d', borderRadius: 90, marginRight: margin ? margin : 0, zIndex: 1 }}>
+            <TouchableOpacity onPress={() => handleAnimate()} style={left === true ? { flexDirection: 'column', position: 'relative', marginLeft: margin ? margin : 0 } : { flexDirection: 'column', position: 'relative', marginRight: margin ? margin : 0 }}>
+                <View style={{ height: 90, flexDirection: 'row', justifyContent: 'center', alignItems: 'center', marginTop: 10, width: 90, backgroundColor: status === trangThai[1] ? '#e5e5e5' : status === trangThai[2] ? '#85c1e9' : '#58d68d', borderRadius: 90, zIndex: 10 }}>
                     {final ? (
                         <Icon1 name='champagne-glasses' style={{ fontSize: 35, color: status === trangThai[1] ? '#afafaf' : 'white' }} />
                     ) : (

@@ -5,6 +5,7 @@ import { Dimensions } from 'react-native';
 import Icon from 'react-native-vector-icons/Feather';
 import { notifyType, utilsContext } from '../../contexts/UtilsContext';
 import { userContext } from '../../contexts/UserContext';
+import { api, TypeHTTP } from '../../utils/api';
 
 const FormChangePassword = () => {
     const { menuData, menuHandler } = useContext(menuContext);
@@ -14,7 +15,7 @@ const FormChangePassword = () => {
     const [newPassword, setNewPassword] = useState('')
     const [confirmNewPassword, setConfirmNewPassword] = useState('')
     const { utilsHandler } = useContext(utilsContext)
-    const { userHandler } = useContext(userContext)
+    const { userHandler, userData } = useContext(userContext)
 
     useEffect(() => {
         Animated.timing(translateX, {
@@ -33,7 +34,7 @@ const FormChangePassword = () => {
             utilsHandler.notify(notifyType.WARNING, 'Mật khẩu mới phải trùng với mật khẩu xác nhận')
             return
         }
-        api({ path: '/user/updatePassword', body: { id: authData.user?._id, oldPassword: oldPassword, newPassword: newPassword }, sendToken: true, type: TypeHTTP.POST })
+        api({ path: '/user/updatePassword', body: { id: userData.user?._id, oldPassword: oldPassword, newPassword: newPassword }, sendToken: true, type: TypeHTTP.POST })
             .then(res => {
                 setOldPassword('')
                 setNewPassword('')
@@ -69,9 +70,9 @@ const FormChangePassword = () => {
                 </TouchableOpacity>
             </View>
             <View style={{ width: '100%', height: '100%', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', gap: 10 }}>
-                <TextInput value={oldPassword} onChangeText={e => setOldPassword(e)} placeholder='mật khẩu hiện tại' style={{ paddingHorizontal: 20, width: '80%', height: 50, borderWidth: 1, borderRadius: 10, borderColor: '#d0d3d4' }} />
-                <TextInput value={newPassword} onChangeText={e => setNewPassword(e)} placeholder='Mật khẩu mới' style={{ paddingHorizontal: 20, width: '80%', height: 50, borderWidth: 1, borderRadius: 10, borderColor: '#d0d3d4' }} />
-                <TextInput value={confirmNewPassword} onChangeText={e => setConfirmNewPassword(e)} placeholder='Xác nhận mật khẩu mới' style={{ paddingHorizontal: 20, width: '80%', height: 50, borderWidth: 1, borderRadius: 10, borderColor: '#d0d3d4' }} />
+                <TextInput secureTextEntry value={oldPassword} onChangeText={e => setOldPassword(e)} placeholder='Mật khẩu hiện tại' style={{ paddingHorizontal: 20, width: '80%', height: 50, borderWidth: 1, borderRadius: 10, borderColor: '#d0d3d4' }} />
+                <TextInput secureTextEntry value={newPassword} onChangeText={e => setNewPassword(e)} placeholder='Mật khẩu mới' style={{ paddingHorizontal: 20, width: '80%', height: 50, borderWidth: 1, borderRadius: 10, borderColor: '#d0d3d4' }} />
+                <TextInput secureTextEntry value={confirmNewPassword} onChangeText={e => setConfirmNewPassword(e)} placeholder='Xác nhận mật khẩu mới' style={{ paddingHorizontal: 20, width: '80%', height: 50, borderWidth: 1, borderRadius: 10, borderColor: '#d0d3d4' }} />
                 <TouchableOpacity onPress={() => handleChange()} style={{ backgroundColor: '#5dade2', width: '80%', flexDirection: 'row', justifyContent: 'center', paddingVertical: 12, borderRadius: 12 }}>
                     <Text style={{ color: 'white', fontSize: 17 }}>Đổi Mật Khẩu</Text>
                 </TouchableOpacity>

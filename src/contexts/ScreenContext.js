@@ -39,6 +39,8 @@ const ScreenProvider = ({ children }) => {
         }
     }
 
+    console.log(currentScreen)
+
     const data = {
         currentScreen
     }
