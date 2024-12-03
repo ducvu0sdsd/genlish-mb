@@ -17,6 +17,7 @@ const CourseScreen = () => {
     const { payloadHandler } = useContext(payloadContext)
     const { userData } = useContext(userContext)
     const { screenHandler } = useContext(screenContext)
+    const [cou, setCou] = useState([])
 
     useEffect(() => {
         api({ type: TypeHTTP.GET, sendToken: false, path: '/course/get-all' })
@@ -24,6 +25,30 @@ const CourseScreen = () => {
                 setCourses(res)
             })
     }, [userData.user?._id])
+
+    useEffect(() => {
+
+        if (courses && Array.isArray(courses)) {
+            courses.forEach(courseItem => {
+                if (userData.user?._id && courseItem?._id) {
+                    api({
+                        sendToken: true,
+                        type: TypeHTTP.GET,
+                        path: `/studycourse/get-by-student-and-course?studentid=${userData.user._id}&courseid=${courseItem._id}`
+                    })
+                        .then(res => {
+                            if (res !== null && res !== undefined) {
+                                setCou(prevCou => [...prevCou, res]);
+                            }
+                        })
+                        .catch(error => {
+
+                            console.error("Error fetching data:", error);
+                        });
+                }
+            });
+        }
+    }, [courses, userData.user?._id]);
 
     return (
         <ScrollView>
@@ -38,7 +63,11 @@ const CourseScreen = () => {
                         }} key={index} style={{ width: '48%', gap: 5, backgroundColor: '#f2f3f4', flexDirection: 'column', paddingBottom: 5, borderRadius: 8 }}>
                             <Image source={{ uri: course.image }} style={{ width: '100%', aspectRatio: 16 / 9, borderRadius: 8 }} />
                             <Text style={{ fontSize: 14, fontWeight: 600, paddingHorizontal: 5 }}>{course.title}</Text>
-                            <Text style={{ fontSize: 13, position: 'absolute', fontWeight: 600, paddingHorizontal: 5, color: '#5dade2', backgroundColor: 'white', borderRadius: 5, top: 3, left: 3 }}>{course.type === 'free' ? 'Miễn Phí' : `${formatMoney(course.price)} đ`}</Text>
+                            {cou && cou.some(c => c.course_id === course._id) ? (
+                                <Text style={{ fontSize: 13, position: 'absolute', fontWeight: 600, paddingHorizontal: 5, color: '#5dade2', backgroundColor: 'white', borderRadius: 5, top: 3, left: 3 }}>Đã Đăng Ký</Text>
+                            ) : (
+                                <Text style={{ fontSize: 13, position: 'absolute', fontWeight: 600, paddingHorizontal: 5, color: '#5dade2', backgroundColor: 'white', borderRadius: 5, top: 3, left: 3 }}>{course.type === 'free' ? 'Miễn Phí' : `${formatMoney(course.price)} đ`}</Text>
+                            )}
                             <View style={{ flexDirection: 'row', justifyContent: 'space-between', paddingHorizontal: 5 }}>
                                 <View style={{ flexDirection: 'row', alignItems: 'center' }}>
                                     <Image source={{ uri: course.teacher.avatar }} style={{ width: 30, aspectRatio: 1, borderRadius: 30 }} />

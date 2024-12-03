@@ -23,7 +23,7 @@ const PayLoadProvider = ({ children }) => {
 
     useEffect(() => {
         if (userData.user?._id, course?._id) {
-            api({ sendToken: true, type: TypeHTTP.GET, path: `/studycourse/get-by-student-and-course?studentid=${userData.user._id}&courseid=${course._id}` })
+            api({ sendToken: true, type: TypeHTTP.GET, path: `/studycourse/get-by-student-and-course?studentid=${userData.user?._id}&courseid=${course._id}` })
                 .then(res => setStudyCourse(res))
         }
     }, [userData.user?._id, course?._id])
