@@ -22,17 +22,20 @@ const Step3 = () => {
     })
 
     const handleCompleteStep3 = () => {
-        if (info.fullName === '') {
-
+        if (info.fullName === '' || info.address === '' || info.gender === null || info.dob === null) {
+            utilsHandler.notify(notifyType.WARNING, 'Không được để trống')
+            return
         }
-        if (info.dob === null) {
-
+        const nameRegex = /^[A-Za-zÀ-ÿ\s]{2,}$/;
+        if (!nameRegex.test(info.fullName)) {
+            utilsHandler.notify(notifyType.WARNING, 'Họ tên không hợp lệ');
+            return;
         }
-        if (info.gender === null) {
 
-        }
-        if (info.address === '') {
-
+        const addressRegex = /^[A-Za-z0-9À-ÿ\s,.-]{5,}$/;
+        if (!addressRegex.test(info.address)) {
+            utilsHandler.notify(notifyType.WARNING, 'Địa chỉ không hợp lệ');
+            return;
         }
         api({ sendToken: false, type: TypeHTTP.POST, path: '/auth/sign-up-step-other', body: { ...userData.user, statusSignUp: 3, fullName: info.fullName, dob: info.dob, address: info.address, gender: info.gender } })
             .then(user => {

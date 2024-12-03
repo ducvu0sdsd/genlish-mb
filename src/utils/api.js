@@ -16,7 +16,7 @@ export const api = async ({ path, body, type, sendToken, port }) => {
         axios.defaults.baseURL = `${baseURL}`
     } else {
         // baseURL = 'http://192.168.88.206:8080/api/v1'
-        baseURL = 'https://genlish-be-gules.vercel.app/api/v1'
+        baseURL = 'https://genlish-be.vercel.app/api/v1'
         axios.defaults.baseURL = `${baseURL}`
     }
     const accessToken = await AsyncStorage.getItem('accessToken')

@@ -6,12 +6,16 @@ import { userContext } from '../../contexts/UserContext';
 import { notifyType, utilsContext } from '../../contexts/UtilsContext';
 import { payloadContext } from '../../contexts/PayloadContext';
 import { SvgUri } from 'react-native-svg';
+import { screenContext } from '../../contexts/ScreenContext';
+import { menuContext } from '../../contexts/MenuContext';
 
 const Step7 = () => {
     const { width } = Dimensions.get('window');
     const { userHandler, userData } = useContext(userContext)
+    const { screenHandler } = useContext(screenContext)
     const { utilsHandler } = useContext(utilsContext)
     const { payloadHandler, payloadData } = useContext(payloadContext)
+    const { menuHandler } = useContext(menuContext)
     const timeOptions = [
         '5 phút / 1 ngày',
         '10 phút / 1 ngày',
@@ -31,8 +35,14 @@ const Step7 = () => {
             }
         })
             .then(user => {
-                userHandler.setUser(user)
+                userHandler.setUser()
+                payloadHandler.setCurrentStepSignUp()
+                menuHandler.setDisplaySignUp(false)
+                screenHandler.navigate("landing")
+                utilsHandler.notify(notifyType.SUCCESS, 'Đăng Ký Thành Công')
             })
+
+
     }
 
     return (

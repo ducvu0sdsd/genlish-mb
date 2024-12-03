@@ -8,13 +8,13 @@ import { payloadContext } from '../../contexts/PayloadContext';
 
 const Step2 = () => {
     const { width } = Dimensions.get('window');
-    const { userHandler } = useContext(userContext)
+    const { userHandler, userData } = useContext(userContext)
     const { utilsHandler } = useContext(utilsContext)
     const { payloadHandler, payloadData } = useContext(payloadContext)
     const [code, setCode] = useState('')
 
     const handleCompleteStep2 = () => {
-        api({ sendToken: false, type: TypeHTTP.POST, path: '/auth/sign-up-step-other', body: { ...authData.user, statusSignUp: 2 } })
+        api({ sendToken: false, type: TypeHTTP.POST, path: '/auth/sign-up-step-other', body: { ...userData.user, statusSignUp: 2 } })
             .then(user => {
                 utilsHandler.notify(notifyType.SUCCESS, 'Xác thực thành công')
                 userHandler.setUser(user)

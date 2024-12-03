@@ -6,6 +6,8 @@ import Icon from 'react-native-vector-icons/Feather';
 import { notifyType, utilsContext } from '../../contexts/UtilsContext';
 import { userContext } from '../../contexts/UserContext';
 import { api, TypeHTTP } from '../../utils/api';
+import { screenContext } from '../../contexts/ScreenContext';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const FormChangePassword = () => {
     const { menuData, menuHandler } = useContext(menuContext);
@@ -16,7 +18,7 @@ const FormChangePassword = () => {
     const [confirmNewPassword, setConfirmNewPassword] = useState('')
     const { utilsHandler } = useContext(utilsContext)
     const { userHandler, userData } = useContext(userContext)
-
+    const { screenHandler } = useContext(screenContext)
     useEffect(() => {
         Animated.timing(translateX, {
             toValue: menuData.displayChangePassword === true ? 0 : width,
@@ -25,10 +27,28 @@ const FormChangePassword = () => {
         }).start();
     }, [menuData.displayChangePassword]);
 
+
+    const clearUserData = async () => {
+
+        await AsyncStorage.removeItem('accessToken');
+        await AsyncStorage.removeItem('refreshToken');
+
+
+    };
     const handleChange = () => {
-        if (oldPassword.length < 6 || newPassword.length < 6) {
-            utilsHandler.notify(notifyType.WARNING, 'Mật khẩu phải trên 6 ký tự')
+
+        if (oldPassword === "" || newPassword === "") {
+            utilsHandler.notify(notifyType.WARNING, 'Vui lòng không để trống')
             return
+        }
+        const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[A-Za-z\d@$!%*?&]{8,}$/;
+        if (!passwordRegex.test(oldPassword)) {
+            utilsHandler.notify(notifyType.WARNING, 'Mật khẩu không hợp lệ. Mật khẩu ít nhất 8 ký tự, bao gồm chữ hoa, chữ thường và chữ số');
+            return;
+        }
+        if (!passwordRegex.test(newPassword)) {
+            utilsHandler.notify(notifyType.WARNING, 'Mật khẩu không hợp lệ. Mật khẩu ít nhất 8 ký tự, bao gồm chữ hoa, chữ thường và chữ số');
+            return;
         }
         if (newPassword !== confirmNewPassword) {
             utilsHandler.notify(notifyType.WARNING, 'Mật khẩu mới phải trùng với mật khẩu xác nhận')
@@ -40,8 +60,13 @@ const FormChangePassword = () => {
                 setNewPassword('')
                 setConfirmNewPassword('')
                 utilsHandler.notify(notifyType.SUCCESS, 'Cập nhật mật khẩu thành công')
-                userHandler.setUser(res.user)
-                menuHandler.setDisplayChangePassword(false)
+                userHandler.setUser();
+                menuHandler.setDisplay(false);
+                screenHandler.navigate('landing');
+                menuHandler.setDisplayChangePassword(false);
+                AsyncStorage.removeItem('accessToken');
+                AsyncStorage.removeItem('refreshToken');
+
             }).catch(e => {
                 utilsHandler.notify(notifyType.FAIL, e.message.data)
             })

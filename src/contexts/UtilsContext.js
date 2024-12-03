@@ -2,10 +2,10 @@ import { createContext } from "react";
 import { Alert } from "react-native";
 export const utilsContext = createContext()
 export const notifyType = {
-    SUCCESS: 'success',
-    FAIL: 'fail',
-    WARNING: 'warning',
-    LOADING: 'loading',
+    SUCCESS: 'Thành công',
+    FAIL: 'Thất bại',
+    WARNING: 'Cảnh báo',
+    LOADING: 'Đang tải..',
     NONE: 'none'
 }
 

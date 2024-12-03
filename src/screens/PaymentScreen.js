@@ -20,7 +20,7 @@ const PaymentScreen = () => {
 
     useEffect(() => {
         if (payloadData.currentCourse && userData.user) {
-            setUrl(`https://qr.sepay.vn/img?bank=ACB&acc=37731017&&template=compact&amount=${'2000'}&des=MaKH${userData.user?._id}MaCourse${payloadData.currentCourse._id}THANHTOAN`)
+            setUrl(`https://qr.sepay.vn/img?bank=MBBank&acc=9908080899&&template=compact&amount=${'2000'}&des=MaKH${userData.user?._id}MaCourse${payloadData.currentCourse._id}THANHTOAN`)
         }
     }, [payloadData.currentCourse])
 
@@ -80,8 +80,8 @@ const PaymentScreen = () => {
                         <Text style={{ fontSize: 22, fontWeight: 600 }}>Thanh Toán Khóa Học</Text>
                         <View style={{ width: '100%', flexDirection: 'column', alignItems: 'center', gap: 5, height: 600, justifyContent: 'center' }}>
                             <Image source={{ uri: url }} style={{ width: 200, height: 200 }} />
-                            <Text style={{ fontSize: 16, fontWeight: 400 }}>Tên chủ TK: THAI QUANG BAO</Text>
-                            <Text style={{ fontSize: 16, fontWeight: 400 }}>Số TK: 37731017</Text>
+                            <Text style={{ fontSize: 16, fontWeight: 400 }}>Tên chủ TK: LE XUAN TUAN ANH</Text>
+                            <Text style={{ fontSize: 16, fontWeight: 400 }}>Số TK: 9908080899</Text>
                             <Text style={{ fontSize: 16, fontWeight: 400 }}>Khóa Học {payloadData.currentCourse?.title} - {formatMoney(payloadData.currentCourse?.price)}đ</Text>
                             <Text style={{ fontSize: 15, paddingHorizontal: 20, textAlign: 'center', fontWeight: 400 }}>Sử dụng app Momo hoặc app Ngân hàng để thanh toán</Text>
                         </View>
